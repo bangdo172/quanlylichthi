@@ -11,8 +11,13 @@ var con = mysql.createConnection({
 	password: "password",
 	database: "lichthi"
 });
-
-
+// var del = connection._protocol._delegateError;
+// connection._protocol._delegateError = function(err, sequence){
+//   if (err.fatal) {
+//     console.trace('fatal error: ' + err.message);
+//   }
+//   return del.call(this, err, sequence);
+// };
 function get_exam_from_name(name) {
 	return new Promise((resolve, reject) => {
 		con.connect(function(err) {
@@ -71,7 +76,7 @@ function delete_all_exams() {
 
 //SETTING UP SERVER
 
- var server = app.listen(process.env.PORT || 8081, function () {
+ var server = app.listen(process.env.PORT || 8082, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
  });

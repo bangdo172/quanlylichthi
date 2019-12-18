@@ -26,10 +26,10 @@ function get_room_from_id(id) {
 	});
 }
 
-function insert_room(id, name, computer) {
+function insert_room(id, computer) {
 	con.connect(function(err) {
 		// if (err) throw err;
-		var sql = "INSERT INTO Room (room_id, room_name) VALUES ('"+id+"', '"+name+"', '"+computer+"')";
+		var sql = "INSERT INTO Room (room_id, computer) VALUES ('"+id+"', '"+computer+"')";
 		con.query(sql, function (err, result) {
 			if (err) throw err;
 			// console.log(result)
@@ -42,7 +42,7 @@ function delete_room(id) {
 		var sql = "DELETE FROM Room WHERE room_id = '" + id + "'";
 		con.query(sql, function (err, result) {
 			if (err) throw err;
-			console.log("Deleted room ", get_room_from_id(id).Name);
+			console.log("Deleted room ", id);
 		});
 	});
 }
@@ -71,7 +71,7 @@ function delete_all_rooms() {
 
 //SETTING UP SERVER
 
- var server = app.listen(process.env.PORT || 8080, function () {
+ var server = app.listen(process.env.PORT || 8082, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
  });
@@ -83,7 +83,7 @@ app.post("/room/insert", function(req, res) {
 		// console.log("RESULT: ", result);
 		// console.log(result.length)
 		if (result.length == 0) {
-			insert_room(req.body.Id, req.body.Name, req.body.Computer);
+			insert_room(req.body.Id, req.body.Computer);
 			res.send({status: "Inserted!"});
 		}
 		else {
