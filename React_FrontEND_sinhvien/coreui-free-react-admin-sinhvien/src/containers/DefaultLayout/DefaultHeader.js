@@ -33,6 +33,9 @@ class DefaultHeader extends Component {
           <NavItem className="px-3">
             <NavLink to="/dangkithi" className="nav-link" >Đăng kí thi</NavLink>
           </NavItem>
+          <NavItem className="px-3">
+            <Link to="/inlichthi" className="nav-link">In lịch thi</Link>
+          </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import {Badge, Card, CardBody, CardHeader, Col, Row, Table, ButtonToolbar, Button, CardFooter} from 'reactstrap';
 
 import usersData from './UsersData'
 
@@ -39,17 +39,17 @@ class Users extends Component {
           <Col xl={6}>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Users <small className="text-muted">example</small>
+                <i className="fa fa-align-justify"></i> In lịch thi
               </CardHeader>
               <CardBody>
                 <Table responsive hover>
                   <thead>
                     <tr>
-                      <th scope="col">id</th>
-                      <th scope="col">name</th>
-                      <th scope="col">registered</th>
-                      <th scope="col">role</th>
-                      <th scope="col">status</th>
+                      <th scope="col">Môn thi</th>
+                      <th scope="col">Ca thi</th>
+                      <th scope="col">Ngày thi</th>
+                      <th scope="col">Giờ thi</th>
+                      <th scope="col">Phòng thi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -58,6 +58,11 @@ class Users extends Component {
                     )}
                   </tbody>
                 </Table>
+                <ButtonToolbar>
+                  <Button variant="primary" block className="mb-3" color="primary">
+                    In lịch thi
+                  </Button>
+                </ButtonToolbar>
               </CardBody>
             </Card>
           </Col>

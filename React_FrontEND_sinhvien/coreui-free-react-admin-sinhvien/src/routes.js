@@ -77,7 +77,7 @@ const routes = [
   //{ path: '/notifications/modals', name: 'Modals', component: Modals },
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/charts', name: 'Charts', component: Charts },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
+  { path: '/inlichthi', exact: true,  name: 'In lịch thi', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
 ];
 
