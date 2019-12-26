@@ -1,7 +1,25 @@
 import React, { useState, Component } from 'react';
 import { Button, Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import Modal from 'react-bootstrap/Modal';
+import {
+  CardFooter,
+  Collapse,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Fade,
+  Form,
+  FormGroup,
+  FormText,
+  FormFeedback,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  InputGroupText,
+  Label,
 
+} from 'reactstrap';
 
 
 function Example(props) {
@@ -32,9 +50,79 @@ function Example(props) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Thêm sinh viên:</Modal.Title>
+          <Modal.Title>Thêm sinh viên mới:</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <Row>
+            <Col xs="12">
+              <FormGroup>
+                <Label htmlFor="name">MSSV:</Label>
+                <Input type="text" id="mssv" placeholder="Nhập MSSV" required />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs="12">
+              <FormGroup>
+                <Label htmlFor="lastname">Họ:</Label>
+                <Input type="text" id="lastname" placeholder="Nhập họ" required />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs="12">
+              <FormGroup>
+                <Label htmlFor="firstname">Tên:</Label>
+                <Input type="text" id="firstname" placeholder="Nhập tên" required />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs="12">
+              <FormGroup>
+                <Label htmlFor="dateofbirth">Ngày sinh:</Label>
+                <Input type="date" id="birthday" placeholder="Nhập ngày sinh" required />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs="12">
+              <FormGroup>
+                <Label htmlFor="sex">Giới tính:</Label>
+                {/* <Input type="text" id="sex" placeholder="Nhập MSSV" required /> */}
+                <Input type="select" name="select" id="select">
+                  <option value="0">Nam</option>
+                  <option value="1">Nữ</option>
+                  <option value="2">Others</option>
+                </Input>
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs="12">
+              <FormGroup>
+                <Label htmlFor="class">Lớp:</Label>
+                <Input type="text" id="class" placeholder="Nhập lớp" required />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs="12">
+              <FormGroup>
+                <Label htmlFor="nganh">Ngành:</Label>
+                <Input type="text" id="nganh" placeholder="Nhập Ngành học" required />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs="12">
+              <FormGroup>
+                <Label htmlFor="khoa">Khoa:</Label>
+                <Input type="text" id="khoa" placeholder="Nhập MSSV" required />
+              </FormGroup>
+            </Col>
+          </Row>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
