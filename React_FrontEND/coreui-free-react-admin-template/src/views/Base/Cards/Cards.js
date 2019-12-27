@@ -21,10 +21,8 @@ import {
 
 
 } from 'reactstrap';
-import {
-  Link
-} from "react-router-dom";
 import { Route, Router, NavLink, HashRouter, BrowserRouter } from "react-router-dom";
+
 
 function Neww4(props) {
 
@@ -43,7 +41,7 @@ function Neww4(props) {
           Tạo kỳ thi mới
               </CardHeader>
         <CardBody className="text-dark">
-          Nhấn nút bên dưới để tạo thêm kì thiì
+          Nhấn nút bên dưới để tạo thêm kì thi
               </CardBody>
         <CardFooter className="bg-warning">
           <ButtonToolbar>
@@ -110,9 +108,9 @@ function Neww5(props) {
               </CardBody>
         <CardFooter>
           <ButtonGroup aria-label="Basic example">
-            <Link to="/quanlylich"><Button variant="secondary" color="primary">Quản lý lịch</Button></Link>
+            <Button variant="secondary" color="primary" onClick={goHome}><i className="fa fa-align-justify"></i> Quản lý lịch</Button>
             <Button variant="secondary" color="warning" onClick={handleShow}><i className="fa fa-dot-circle-o"></i> Sửa đổi</Button>
-            <Button variant="secondary" color="danger"><i className="fa fa-ban"></i>Xóa lịch</Button>
+            <Button variant="secondary" color="danger"><i className="fa fa-ban"></i> Xóa lịch</Button>
           </ButtonGroup>
         </CardFooter>
       </Card>

@@ -80,47 +80,45 @@ function Showlst(props) {
 function Neww3(props) {
 
   const [show, setShow] = useState(false);
+  const [name, setName] = useState('');
+  const [numberSeats, setNumberSeats] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
   var state = { 
     name: '',
-    numberSeats: Number
+    numberSeats: ''
   }
 
-  const handleChangeName = event => {
-    //this.setState({ name: event.target.value }).bind(this);
-    state.name = event.target.value;
-    console.log(state.name)
-  }
+  // const handleChangeName = event => {
+  //   //this.setState({ name: event.target.value }).bind(this);
+  //   state.name = event.target.value;
+  //   console.log(state.name)
+  //   namesss = state.name;
+  // }
 
-
-  const handleChangeNumberSeats =  event => {
-    //this.setState({ numberSeats: event.target.value }).bind(this);
+  // const handleChangeNumberSeats =  event => {
+  //   //this.setState({ numberSeats: event.target.value }).bind(this);
     
-    state.numberSeats = event.target.value;
-  }
+  //   state.numberSeats = event.target.value;
+  // }
 
   
 
   const handleSubmit = event => {
     
-    alert('A name was submitted: ' + state.name);
+    
+
     event.preventDefault();
 
-    // const user = {
-    //   name: state.name,
-    //   numberSeats: state.numberSeats
-    // };    
 
-    state.name = 
-
-    axios.post('http://96d65123.ngrok.io/room/create', { state })
+    axios.post('http://96d65123.ngrok.io/room/create', { name, numberSeats })
       .then(res => {
         console.log(res);
         console.log(res.data);
       }).catch(error => console.log(error))
+
   }
 
   return (
@@ -143,7 +141,7 @@ function Neww3(props) {
                 <FormGroup>
                 {/* onChange={handleChangeName} */}
                   <Label htmlFor="name">Tên phòng thi:</Label>
-                  <Input type="text" id="tenphongthi" placeholder="Nhập tên phòng thi" onChange={handleChangeName} required />
+                  <Input type="text" id="tenphongthi" placeholder="Nhập tên phòng thi" onChange={event => setName(event.target.value)} required />
                 </FormGroup>
               </Col>
             </Row>
@@ -152,7 +150,7 @@ function Neww3(props) {
                 <FormGroup>
                 {/* onChange={handleChangeNumberSeats} */}
                   <Label htmlFor="name">Số chỗ:</Label>
-                  <Input type="text" id="socho" placeholder="Nhập số chõ ngồi" onChange={handleChangeNumberSeats} required />
+                  <Input type="number" id="socho" placeholder="Nhập số chõ ngồi" onChange={event => setNumberSeats(event.target.value)} required />
                 </FormGroup>
               </Col>
             </Row>
