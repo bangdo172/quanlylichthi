@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {createFactory} from 'react';
 
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
@@ -35,6 +35,7 @@ const Typography = React.lazy(() => import('./views/Theme/Typography'));
 const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
+const Schedule = React.lazy(() => import('./views/Base/Schedule/Schedule'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -75,10 +76,11 @@ const routes = [
   //{ path: '/notifications/alerts', name: 'Alerts', component: Alerts },
   //{ path: '/notifications/badges', name: 'Badges', component: Badges },
   //{ path: '/notifications/modals', name: 'Modals', component: Modals },
-  { path: '/widgets', name: 'Widgets', component: Widgets },
+  { path: '/quanlylich', name: 'Quản lý lịch', component: Widgets },
   { path: '/charts', name: 'Charts', component: Charts },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/schedule', exact: true, name: 'Schedule', compare: Schedule},
 ];
 
 export default routes;

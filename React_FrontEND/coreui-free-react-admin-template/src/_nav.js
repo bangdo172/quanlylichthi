@@ -13,7 +13,7 @@ export default {
       name: 'Quản lý khóa học',
       url: '/base/breadcrumbs',
       icon: 'icon-puzzle',
-      
+
     },
     {
       name: 'Quản lý lịch thi',
@@ -234,12 +234,10 @@ export default {
     //   ],
     // },
     {
-      name: 'Widgets',
-      url: '/widgets',
-      icon: 'icon-calculator',
+      name: '',
+      url: '/quanlylich',
       badge: {
         variant: 'info',
-        text: 'NEW',
       },
     },
     {
