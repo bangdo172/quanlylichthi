@@ -158,11 +158,11 @@ function Funcc(props) {
     <>
 
       {
-        props.persons.map((p) => {
+        props.exam.map((p) => {
           return (
             <Card>
               <CardHeader>
-                {p}
+                {p.subjectID}
               </CardHeader>
               <CardBody>
                 Số môn thi: 4
@@ -221,7 +221,7 @@ class Cards extends Component {
       fadeIn: true,
       timeout: 300,
 
-      persons: [],
+      exam: [],
       error: null
     };
   }
@@ -229,11 +229,11 @@ class Cards extends Component {
 
   componentDidMount() {
 
-    axios.get("http://192.168.0.112:5000/test")
+    axios.get("http://96d65123.ngrok.io/exam_schedule/exam")
       .then(result => {
-        const persons = result.data.dulieu;
-        this.setState({ persons });
-        console.log(persons);
+        const exam = result.data;
+        this.setState({ exam });
+        console.log(exam);
       })
       .catch(error => console.log(error))
   }
@@ -254,16 +254,18 @@ class Cards extends Component {
       <div className="animated fadeIn">
         <h1><bold>Quản lý lịch thi</bold></h1>
         <Row>
-          <Col xs="12" sm="6" md="4">
+          <Col>
             <Neww4 />
           </Col>
-          <Col xs="12" sm="6" md="4">
+        </Row>
+        <Row>
+          <Col>
             <Neww5 />
           </Col>
         </Row>
         <Row>
-          <Col xs="12" sm="6" md="4">
-            <Funcc persons={this.state.persons} />
+          <Col>
+            <Funcc exam={this.state.exam} />
           </Col>
 
         </Row>

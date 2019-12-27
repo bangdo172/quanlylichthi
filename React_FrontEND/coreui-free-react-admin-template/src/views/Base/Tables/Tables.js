@@ -1,4 +1,5 @@
 import React, { useState, Component } from 'react';
+import axios from 'axios';
 import { Button, Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
 import Modal from 'react-bootstrap/Modal';
 import {
@@ -157,7 +158,74 @@ function Example(props) {
   );
 }
 
+function StudentList(props) {
+  return (
+    <>
+      <Table hover bordered striped responsive size="sm">
+        <thead>
+          <tr>
+            <th>MSSV</th>
+            <th>Họ và Tên</th>
+            <th>mail</th>
+            <th>Ngày sinh</th>
+            <th>Giới tính</th>
+            <th>Lớp</th>
+            <th>Ngành</th>
+            <th>Khoa</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {
+            props.student.map((p) => {
+              return (
+                <tr>
+                  <td>{p.code}</td>
+                  <td>{p.name}</td>
+                  <td>{p.vnumail}</td>
+                  <td>{p.dateOfBirth}</td>
+                  <td>{p.gender}</td>
+                  <td>K62CACLC1</td>
+                  <td>Computer Science</td>
+                  <td>Công nghệ thông tin</td>
+
+                </tr>
+              )
+            })
+
+          }
+
+        </tbody>
+      </Table>
+    </>
+  )
+}
+
 class Tables extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      student: [],
+      error: null,
+      // name: "",
+      // numberSeats: number
+    };
+  }
+
+  componentDidMount() {
+
+    axios.get("http://96d65123.ngrok.io/student")
+      .then(result => {
+        const student = result.data;
+        this.setState({
+
+          student
+        });
+
+        // console.log(rooms);
+      })
+      .catch(error => console.log(error))
+  }
   render() {
     return (
       <div className="animated fadeIn">
@@ -186,91 +254,10 @@ class Tables extends Component {
                   {/* <Example2/> */}
                 </div>
 
-                <Table hover bordered striped responsive size="sm">
-                  <thead>
-                    <tr>
-                      <th>MSSV</th>
-                      <th>Họ</th>
-                      <th>Tên</th>
-                      <th>Ngày sinh</th>
-                      <th>Giới tính</th>
-                      <th>Lớp</th>
-                      <th>Ngành</th>
-                      <th>Khoa</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>17021268</td>
-                      <td>Trần Quang</td>
-                      <td>Huy</td>
-                      <td>1999/08/22</td>
-                      <td>Nam</td>
-                      <td>K62CACLC1</td>
-                      <td>Computer Science</td>
-                      <td>Công nghệ thông tin</td>
-                      <td>
-                        <Badge color="success">Active</Badge>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>17021268</td>
-                      <td>Trần Quang</td>
-                      <td>Huy</td>
-                      <td>1999/08/22</td>
-                      <td>Nam</td>
-                      <td>K62CACLC1</td>
-                      <td>Computer Science</td>
-                      <td>Công nghệ thông tin</td>
-                      <td>
-                        <Badge color="danger">Banned</Badge>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>17021268</td>
-                      <td>Trần Quang</td>
-                      <td>Huy</td>
-                      <td>1999/08/22</td>
-                      <td>Nam</td>
-                      <td>K62CACLC1</td>
-                      <td>Computer Science</td>
-                      <td>Công nghệ thông tin</td>
-                      <td>
-                        <Badge color="secondary">Inactive</Badge>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>17021268</td>
-                      <td>Trần Quang</td>
-                      <td>Huy</td>
-                      <td>1999/08/22</td>
-                      <td>Nam</td>
-                      <td>K62CACLC1</td>
-                      <td>Computer Science</td>
-                      <td>Công nghệ thông tin</td>
-                      <td>
-                        <Badge color="warning">Pending</Badge>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>17021268</td>
-                      <td>Trần Quang</td>
-                      <td>Huy</td>
-                      <td>1999/08/22</td>
-                      <td>Nam</td>
-                      <td>K62CACLC1</td>
-                      <td>Computer Science</td>
-                      <td>Công nghệ thông tin</td>
-                      <td>
-                        <Badge color="success">Active</Badge>
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
+                <StudentList student = {this.state.student}/>
 
 
-                <nav>
+                {/* <nav>
                   <Pagination>
                     <PaginationItem><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
                     <PaginationItem active>
@@ -281,7 +268,7 @@ class Tables extends Component {
                     <PaginationItem><PaginationLink tag="button">4</PaginationLink></PaginationItem>
                     <PaginationItem><PaginationLink next tag="button">Next</PaginationLink></PaginationItem>
                   </Pagination>
-                </nav>
+                </nav> */}
               </CardBody>
             </Card>
           </Col>

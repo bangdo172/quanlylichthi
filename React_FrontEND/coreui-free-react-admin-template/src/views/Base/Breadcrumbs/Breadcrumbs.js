@@ -1,4 +1,5 @@
 import React, { useState, Component } from 'react';
+import axios from 'axios';
 import { ButtonToolbar, Button, Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 import {
   Badge,
@@ -101,32 +102,40 @@ function Example3(props) {
   return (
     <>
 
-      <Row>
-        <Col xs="12" sm="6" md="4">
-          <Card>
-            <CardHeader>
-              Mạng máy tính
-              </CardHeader>
-            <CardBody>
-              <h2>INT22099</h2>
-              <p>Số tín chỉ: 3</p>
-            </CardBody>
-            <CardFooter>
-              <ButtonToolbar>
-                <Button variant="primary" block className="mb-3" color="primary" onClick={handleShow}>
-                  <i className="fa fa-dot-circle-o"></i>
-                  Sửa thông tin
-                  </Button>
-                <Button variant="primary" block className="mb-3" color="danger">
-                  <i className="fa fa-ban"></i>
-                  Xóa khóa học
-                  </Button>
-              </ButtonToolbar>
-            </CardFooter>
-          </Card>
-        </Col>
-      </Row>
+      {
+        props.course.map((p) => {
+          return (
 
+            <Row>
+              <Col>
+                <Card>
+                  <CardHeader>
+                    
+              </CardHeader>
+                  <CardBody>
+                    <h2>{p.name}</h2>
+                    <p>Số tín chỉ: {p.credits}</p>
+                    <p><i>Giáo Viên: {p.lecturer}</i></p>
+                  </CardBody>
+                  <CardFooter>
+                    <ButtonToolbar>
+                      <Button variant="primary" block className="mb-3" color="primary" onClick={handleShow}>
+                        <i className="fa fa-dot-circle-o"></i>
+                        Sửa thông tin
+                  </Button>
+                      <Button variant="primary" block className="mb-3" color="danger">
+                        <i className="fa fa-ban"></i>
+                        Xóa khóa học
+                  </Button>
+                    </ButtonToolbar>
+                  </CardFooter>
+                </Card>
+              </Col>
+            </Row>
+
+          )
+        })
+      }
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -176,73 +185,39 @@ function Example3(props) {
 
 
 class Breadcrumbs extends Component {
-  // calendarComponentRef = React.createRef()
-  // state = {
-  //   calendarWeekends: true,
-  //   calendarEvents: [ // initial event data
-  //     { title: 'Event Now', start: new Date() },
-  //     {
-  //       title: 'dit nhau',
-  //       start: new Date(2019, 11, 1, 8, 30),
-  //       end: new Date(2019, 11, 2, 14)
-  //     }
-  //   ]
-  // }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      course: [],
+      error: null
+    };
+  }
+
+
+  componentDidMount() {
+
+    axios.get("http://96d65123.ngrok.io/subject")
+      .then(result => {
+        const course = result.data;
+        this.setState({ course });
+        console.log(course);
+      })
+      .catch(error => console.log(error))
+  }
+
+
   render() {
     return (
       <div className="animated fadeIn">
         <h1><bold>Quản lý Khóa học</bold></h1>
         <Example2 />
-        <Example3 />
-
-
-        {/* Calendar 
-        <div className='demo-app'>
-          <div className='demo-app-calendar'>
-            <FullCalendar
-              defaultView="dayGridMonth"
-              header={{
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-              }}
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              ref={this.calendarComponentRef}
-              weekends={this.state.calendarWeekends}
-              events={this.state.calendarEvents}
-              dateClick={this.handleDateClick}
-            />
-          </div>
-        </div> */}
+        <Example3 course = {this.state.course} />
 
       </div>
     );
   }
 
-
-  // Calendar
-  // toggleWeekends = () => {
-  //   this.setState({ 
-  //     calendarWeekends: !this.state.calendarWeekends
-  //   })
-  // }
-
-  // gotoPast = () => {
-  //   let calendarApi = this.calendarComponentRef.current.getApi()
-  //   calendarApi.gotoDate('2019-01-01') /
-  // }
-
-  // handleDateClick = (arg) => {
-  //   if (window.confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-  //     this.setState({  
-  //       calendarEvents: this.state.calendarEvents.concat({ 
-  //         title: 'New Event',
-  //         start: arg.date,
-  //         allDay: arg.allDay
-  //       })
-  //     })
-  //   }
-  // }
 }
 
 export default Breadcrumbs;

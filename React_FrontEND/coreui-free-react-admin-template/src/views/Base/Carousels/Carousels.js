@@ -192,9 +192,7 @@ class Carousels extends Component {
       .then(result => {
         const rooms = result.data;
         this.setState({
-          // Posts: rooms.map((rooms, i) => (
-          //   <li key={i}>{rooms.text}</li>
-          // ))
+          
           rooms
         });
 
