@@ -137,7 +137,13 @@ function Example(props) {
         <Modal.Header closeButton>
           <Modal.Title>Nhập dữ liệu từ excel:</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Nhập dữ liệu từ excel</Modal.Body>
+        <Modal.Body>Nhập dữ liệu từ excel
+        <FormGroup row>
+            <Col xs="12" md="9">
+              <Input type="file" id="file-input" name="file-input" />
+            </Col>
+          </FormGroup>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose2}>
             Close

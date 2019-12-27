@@ -213,15 +213,11 @@ function Neww4(props) {
   return (
     <>
 
-      <Card className="bg-warning">
-        <CardFooter className="bg-warning">
-          <ButtonToolbar>
+      <Card>
             <Button variant="primary" color="primary" onClick={handleShow}>
               <i className="fa fa-dot-circle-o"></i>
               Thêm ca thi
             </Button>
-          </ButtonToolbar>
-        </CardFooter>
       </Card>
 
 

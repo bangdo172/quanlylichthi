@@ -42,7 +42,7 @@ function Example2(props) {
     <>
 
       <ButtonToolbar>
-        <Button variant="primary" block className="mb-3" onClick={handleShow}>Thêm sinh viên</Button>
+        <Button variant="primary" block className="mb-3" onClick={handleShow}>Thêm khóa học mới</Button>
       </ButtonToolbar>
 
 
