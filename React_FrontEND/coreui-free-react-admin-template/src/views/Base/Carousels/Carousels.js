@@ -1,4 +1,5 @@
-import React, { useState , Component } from 'react';
+import React, { setState, useState, Component } from 'react';
+import axios from 'axios';
 import { ButtonToolbar, Button, Card, CardBody, CardHeader, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
 import Modal from 'react-bootstrap/Modal';
 import {
@@ -29,36 +30,48 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { number } from 'prop-types';
 
 
 
 
 function Showlst(props) {
 
-  function ListItem(props) {
-    return <li>{props.value}</li>;
-  }
-
-  function NumberList(props) {
-    const numbers = props.numbers;
-    return (
-      <ul>
-        {numbers.map((number) =>
-          <ListItem key={number.toString()}
-            value={number} />
-        )}
-      </ul>
-    );
-  }
+  // function ListItem(props) {
+  //   return <li>{props.value} ---> 3 chỗ</li>;
+  // }
 
 
+  // function NumberList(props) {
+  //   const numbers = props.numbers;
+  //   return (
+  //     <ul>
+  //       {numbers.map((number) =>
+  //         <ListItem key={number.toString()}
+  //           value={number} />
+  //       )}
+  //     </ul>
+  //   );
+  // }
 
-  const numbers = ["304-GD3", "302-GD2", "207-GD3"];
+
+
+  // const numbers = ["304-GD3", "302-GD2", "207-GD3"];
 
 
   return (
     <>
-      <NumberList numbers={numbers} />
+      {/* <NumberList numbers={numbers} /> */}
+      {
+        // console.log(props)
+        props.rooms.map((p) => {
+          return (
+            <ul>
+              <li>{p.name} --> {p.numberSeats} chỗ</li>
+            </ul>
+          )
+        })
+      }
     </>
   );
 }
@@ -71,6 +84,45 @@ function Neww3(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  var state = { 
+    name: '',
+    numberSeats: Number
+  }
+
+  const handleChangeName = event => {
+    //this.setState({ name: event.target.value }).bind(this);
+    state.name = event.target.value;
+    console.log(state.name)
+  }
+
+
+  const handleChangeNumberSeats =  event => {
+    //this.setState({ numberSeats: event.target.value }).bind(this);
+    
+    state.numberSeats = event.target.value;
+  }
+
+  
+
+  const handleSubmit = event => {
+    
+    alert('A name was submitted: ' + state.name);
+    event.preventDefault();
+
+    // const user = {
+    //   name: state.name,
+    //   numberSeats: state.numberSeats
+    // };    
+
+    state.name = 
+
+    axios.post('http://96d65123.ngrok.io/room/create', { state })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      }).catch(error => console.log(error))
+  }
+
   return (
     <>
       <ButtonToolbar>
@@ -79,39 +131,45 @@ function Neww3(props) {
                   </Button>
       </ButtonToolbar>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Thêm khóa học mới</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Row>
-            <Col xs="12">
-              <FormGroup>
-                <Label htmlFor="name">Mã khóa học:</Label>
-                <Input type="text" id="makhoahoc" placeholder="Nhập mã khóa học" required />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs="12">
-              <FormGroup>
-                <Label htmlFor="name">Tên khóa học:</Label>
-                <Input type="text" id="tenkhoahoc" placeholder="Nhập tên khóa học" required />
-              </FormGroup>
-            </Col>
-          </Row>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose} color="danger">
-            <i className="fa fa-ban"></i>
-            Close
+      
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Thêm phòng thi mới</Modal.Title>
+          </Modal.Header>
+          <Form onSubmit={handleSubmit}>
+          <Modal.Body>
+            <Row>
+              <Col xs="12">
+                <FormGroup>
+                {/* onChange={handleChangeName} */}
+                  <Label htmlFor="name">Tên phòng thi:</Label>
+                  <Input type="text" id="tenphongthi" placeholder="Nhập tên phòng thi" onChange={handleChangeName} required />
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="12">
+                <FormGroup>
+                {/* onChange={handleChangeNumberSeats} */}
+                  <Label htmlFor="name">Số chỗ:</Label>
+                  <Input type="text" id="socho" placeholder="Nhập số chõ ngồi" onChange={handleChangeNumberSeats} required />
+                </FormGroup>
+              </Col>
+            </Row>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose} color="danger">
+              <i className="fa fa-ban"></i>
+              Close
           </Button>
-          <Button variant="primary" onClick={handleClose} color="primary">
-            <i className="fa fa-dot-circle-o"></i>
-            Save Changes
+            <Button type="submit" variant="primary" onClick={handleClose} color="primary">
+              <i className="fa fa-dot-circle-o"></i>
+              Save Changes
           </Button>
-        </Modal.Footer>
-      </Modal>
+          </Modal.Footer>
+          </Form>
+        </Modal>
+      
     </>
   );
 
@@ -119,6 +177,34 @@ function Neww3(props) {
 
 
 class Carousels extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      rooms: [],
+      error: null,
+      // name: "",
+      // numberSeats: number
+    };
+  }
+
+  componentDidMount() {
+
+    axios.get("http://96d65123.ngrok.io/room")
+      .then(result => {
+        const rooms = result.data;
+        this.setState({
+          // Posts: rooms.map((rooms, i) => (
+          //   <li key={i}>{rooms.text}</li>
+          // ))
+          rooms
+        });
+
+        // console.log(rooms);
+      })
+      .catch(error => console.log(error))
+  }
+
 
   calendarComponentRef = React.createRef()
   state = {
@@ -144,8 +230,7 @@ class Carousels extends Component {
               <div className="mb-3 mt-3 mr-3 ml-3">
                 <Neww3 />
                 <h6> Danh sách phòng thi</h6>
-
-                <Showlst />
+                <Showlst rooms={this.state.rooms} />
 
               </div>
             </Card>
