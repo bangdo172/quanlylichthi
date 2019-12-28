@@ -21,7 +21,7 @@ import {
 
 
 } from 'reactstrap';
-import { Route, Router, NavLink, HashRouter, BrowserRouter } from "react-router-dom";
+import { Route, Router, NavLink, HashRouter, BrowserRouter, Link } from "react-router-dom";
 
 
 function Neww4(props) {
@@ -93,9 +93,9 @@ function Neww5(props) {
 
 
 
-  const goHome = () => {
-    this.props.history.push('./views/Widgets/Widgets')
-  }
+  // const goHome = () => {
+  //   this.props.history.push('./views/Widgets/Widgets')
+  // }
 
   return (
     <>
@@ -108,8 +108,7 @@ function Neww5(props) {
               </CardBody>
         <CardFooter>
           <ButtonGroup aria-label="Basic example">
-            <Button variant="secondary" color="primary" onClick={goHome}><i className="fa fa-align-justify"></i> Quản lý lịch</Button>
-            <Button variant="secondary" color="warning" onClick={handleShow}><i className="fa fa-dot-circle-o"></i> Sửa đổi</Button>
+          <Link to="/widgets"><Button variant="secondary" color="primary" ><i className="fa fa-align-justify"></i> Quản lý lịch</Button></Link>            <Button variant="secondary" color="warning" onClick={handleShow}><i className="fa fa-dot-circle-o"></i> Sửa đổi</Button>
             <Button variant="secondary" color="danger"><i className="fa fa-ban"></i> Xóa lịch</Button>
           </ButtonGroup>
         </CardFooter>
@@ -169,7 +168,7 @@ function Funcc(props) {
               </CardBody>
               <CardFooter>
                 <ButtonGroup aria-label="Basic example">
-                  <Button variant="secondary" color="primary"><i className="fa fa-align-justify"></i> Quản lý lịch</Button>
+                  <Link to="/widgets"><Button variant="secondary" color="primary" ><i className="fa fa-align-justify"></i> Quản lý lịch</Button></Link>
                   <Button variant="secondary" color="warning" onClick={handleShow}><i className="fa fa-dot-circle-o"></i> Sửa đổi</Button>
                   <Button variant="secondary" color="danger"><i className="fa fa-ban"></i> Xóa lịch</Button>
                 </ButtonGroup>

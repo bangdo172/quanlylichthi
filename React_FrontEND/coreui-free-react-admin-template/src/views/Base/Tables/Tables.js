@@ -25,7 +25,7 @@ import {
 
 function Example(props) {
   const [show, setShow] = useState(false);
-
+  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -34,11 +34,42 @@ function Example(props) {
 
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
+
+  var state = {
+    selectedFile: null
+  }
+
+
+  
+
+  const handleSubmit = () => {
+    alert("heyyy " + state.selectedFile);
+    
+
+    const data = new FormData()
+    data.append('file', state.selectedFile)
+    console.log(data)
+
+    axios.post("http://96d65123.ngrok.io/student/create", data, { // receive two parameter endpoint url ,form data 
+    })
+      .then(res => { // then print response status
+        console.log('OK')
+      }).catch(error => console.log(error))
+  }
+
+  const onChangeHandler = event => {
+    // setSlectedFile({
+    //   selectedFile: event.target.files[0],
+    //   loaded: 0,
+    // })
+    state.selectedFile = event.target.files[0];
+    //console.log(event.target.files[0]);
+    //console.log(state.selectedFile)
+  }
+
   return (
     <>
-      <Button className="btn btn-warning">
-        Làm mới dữ liệu
-      </Button>
+
       <Button variant="primary" onClick={handleShow2} className="btn btn-danger">
         Thêm dữ liệu từ excel
       </Button>
@@ -48,6 +79,7 @@ function Example(props) {
       <Button className="btn btn-success">
         Xóa toàn bộ dữ liệu
       </Button>
+
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -134,6 +166,7 @@ function Example(props) {
         </Modal.Footer>
       </Modal>
 
+      
       <Modal show={show2} onHide={handleClose2}>
         <Modal.Header closeButton>
           <Modal.Title>Nhập dữ liệu từ excel:</Modal.Title>
@@ -141,7 +174,7 @@ function Example(props) {
         <Modal.Body>Nhập dữ liệu từ excel
         <FormGroup row>
             <Col xs="12" md="9">
-              <Input type="file" id="file-input" name="file-input" />
+              <Input type="file" id="file-input" name="file-input" onChange={onChangeHandler} />
             </Col>
           </FormGroup>
         </Modal.Body>
@@ -149,11 +182,13 @@ function Example(props) {
           <Button variant="secondary" onClick={handleClose2}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose2}>
+          <Button type="submit" variant="primary" onClick={handleSubmit}>
             Save Changes
           </Button>
+
         </Modal.Footer>
       </Modal>
+    
     </>
   );
 }
@@ -183,8 +218,8 @@ function StudentList(props) {
                   <td>{p.code}</td>
                   <td>{p.name}</td>
                   <td>{p.vnumail}</td>
-                  <td>{p.dateOfBirth}</td>
-                  <td>{p.gender}</td>
+                  <td>20/08/1999</td>
+                  <td>Male</td>
                   <td>K62CACLC1</td>
                   <td>Computer Science</td>
                   <td>Công nghệ thông tin</td>
@@ -254,7 +289,7 @@ class Tables extends Component {
                   {/* <Example2/> */}
                 </div>
 
-                <StudentList student = {this.state.student}/>
+                <StudentList student={this.state.student} />
 
 
                 {/* <nav>
